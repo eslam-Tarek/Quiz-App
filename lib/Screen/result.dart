@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizapp/Provider/questionData.dart';
-import 'package:quizapp/Screen/quiz.dart';
 
 class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<QuestionData>(context);
+    final data = Provider.of<QuestionData>(context,listen:false);
     return Scaffold(
        body: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,9 +34,7 @@ class Result extends StatelessWidget {
             ),
             child: FlatButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return Quiz();
-                }));
+               data.restQuiz(context);
               },
               child: Text(
                 'Rest Quiz',

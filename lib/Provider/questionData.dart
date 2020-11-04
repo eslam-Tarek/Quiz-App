@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/Screen/quiz.dart';
 import 'package:quizapp/Screen/result.dart';
 import 'package:quizapp/models/question.dart';
 
@@ -60,7 +61,7 @@ class QuestionData extends ChangeNotifier{
           'score' : 0, 
         },
         {
-          'txt' : '24',
+          'txt' : '26',
           'score' : 10, 
         },
         {
@@ -112,11 +113,11 @@ class QuestionData extends ChangeNotifier{
      ]
     ),
   ];
- 
-   String getquestion(){
+ // get Question txt
+  String getquestion(){
     return _question[_questionNumber].title;
   }
-  /// get count of Answer List
+  // get count of Answer List
   getanswerCount(){
     return _question[_questionNumber].answer.length;
   }
@@ -126,26 +127,30 @@ class QuestionData extends ChangeNotifier{
   }
   // calclute total score
   getScore(int index){
-    for(int i=0 ; i<index +1 ; i++){
-      score += _question[_questionNumber].answer[index]['score'];
-    }
+    score += _question[_questionNumber].answer[index]['score'];
+    print(score);
   }
   // get the question or fish quiz
   getNextQuestion(BuildContext context ,int index){
+    getScore(index);
     if(_questionNumber < _question.length-1){
-      getScore(index);
       _questionNumber++;
     }
     else{
       Navigator.push(context, MaterialPageRoute(builder: (context){
         return Result();
       }));
-      restQuiz();
     }
     notifyListeners();
   }
   // rest the quiz 
-   restQuiz(){
-    _questionNumber = 0;
+
+   restQuiz(BuildContext context){
+     _questionNumber = 0;
+     score = 0;
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return Quiz();
+    }));
+    notifyListeners();
   }
 }

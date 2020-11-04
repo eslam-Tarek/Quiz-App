@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quizapp/Provider/questionData.dart';
 
 class Quiz extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<QuestionData>(context);
